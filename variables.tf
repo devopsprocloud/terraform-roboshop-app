@@ -50,3 +50,7 @@ variable "rule_priority" {
 variable "app_alb_listener_arn" {
   
 }
+
+variable "app_version" {
+  
+}
