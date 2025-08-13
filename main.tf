@@ -59,14 +59,23 @@ resource "null_resource" "component" {
     destination = "/tmp/bootstrap.sh"
   }
 
+#   provisioner "remote-exec" {
+#     # Bootstrap script called with private_ip of each node in the cluster
+#     inline = [
+#       "chmod +x /tmp/bootstrap.sh",
+#       "sudo sh /tmp/bootstrap.sh ${var.tags.Component} ${var.environment} ${var.app_version}"# We are parsing the variables as $1 (mongodb) and $2 (dev) to bootstrap script
+#     ]
+#   }
+# }
+
   provisioner "remote-exec" {
-    # Bootstrap script called with private_ip of each node in the cluster
-    inline = [
-      "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh ${var.tags.Component} ${var.environment} ${var.app_version}"# We are parsing the variables as $1 (mongodb) and $2 (dev) to bootstrap script
-    ]
+      # Bootstrap script called with private_ip of each node in the cluster
+      inline = [
+        "chmod +x /tmp/bootstrap.sh",
+        "sudo sh /tmp/bootstrap.sh ${var.tags.Component} ${var.environment} ${var.app_version}"
+      ]
+    }
   }
-}
 
 # Stopping the component AMI Instnace
 #------------------------------------------------------
